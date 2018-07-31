@@ -19,17 +19,13 @@ let cards = ['fa-diamond', 'fa-diamond',
  */
 
 function displayCards() {
-    shuffle(cards);
-
-    cards.forEach(function(card) {
+    shuffle(cards).forEach(function(card) {
         let deck = document.querySelector('.deck');
-        deck.insertAdjacentHTML('beforeEnd', `<li class="card"><i class="fa ${card}"> </i></li>`);
+        deck.insertAdjacentHTML('beforeEnd', `<li class="card" data-card="${card}"><i class="fa ${card}"></i></li>`);
     });
-};
+}
 
 displayCards();
-
-
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -45,7 +41,6 @@ function shuffle(array) {
 
     return array;
 }
-
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -69,35 +64,21 @@ allCards.forEach(function(card) {
         }
 
         if (openCards.length == 2) {
-            setTimeout(function() {
-                openCards.forEach(function(card) {
-                    card.classList.remove('open', 'show');
-                })
+            // if cards match
+            if (openCards[0].dataset.card == openCards[1].dataset.card) {
+                openCards[0].classList.add('match');
+                openCards[1].classList.add('match');
+
                 openCards = [];
-            }, 700);
+            } else {
+                // if no match -- hide
+                setTimeout(function() {
+                    openCards.forEach(function(card) {
+                        card.classList.remove('open', 'show');
+                    })
+                    openCards = [];
+                }, 700);
+            }
         }
     })
 });
-
-
-
-// let allCards = document.querySelectorAll('.card');
-// let openCards = [];
-
-// allCards.forEach(function(card) {
-//     card.addEventListener('click', function(e) {
-//         if (!card.classList.contains('show') && !card.classList.contains('open') && !card.classList.contains('match') {
-//             openCards.push(card);
-//             card.classList.add('open', 'show');
-
-//             if (openCards.length == 2) {
-//                 setTimeout(function() {
-//                     openCards.forEach(function(card) {
-//                         card.classList.remove('open', 'show');
-//                     });
-//                     openCards = [];
-//                 }, 1000);
-//             }
-//         });
-//     });
-// });
