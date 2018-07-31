@@ -2,6 +2,9 @@
  * Create a list that holds all of your cards
  */
 
+let cards = [];
+cards = document.getElementsByClassName('card');
+
 
 /*
  * Display the cards on the page
