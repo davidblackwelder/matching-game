@@ -1,10 +1,15 @@
 /*
  * Create a list that holds all of your cards
  */
-
-let cards = [];
-cards = document.getElementsByClassName('card');
-
+let cards = ['fa-diamond', 'fa-diamond',
+            'fa-paper-plane-o', 'fa-paper-plane-o',
+            'fa-anchor', 'fa-anchor',
+            'fa-bolt', 'fa-bolt',
+            'fa-cube', 'fa-cube',
+            'fa-leaf', 'fa-leaf',
+            'fa-bicycle', 'fa-bicycle',
+            'fa-bomb', 'fa-bomb',
+            ];
 
 /*
  * Display the cards on the page
@@ -12,6 +17,17 @@ cards = document.getElementsByClassName('card');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+function displayCards() {
+    shuffle(cards);
+
+    cards.forEach(function(card) {
+        let deck = document.querySelector('.deck');
+        deck.insertAdjacentHTML('beforeEnd', `<li class="card"><i class="fa ${card}"> </i></li>`);
+    });
+};
+
+displayCards();
 
 
 
@@ -43,9 +59,45 @@ function shuffle(array) {
  */
 
 let allCards = document.querySelectorAll('.card');
+let openCards = [];
 
 allCards.forEach(function(card) {
-    card.addEventListener('click', function(e) {
-        card.classList.add('open', 'show');
-    });
+    card.addEventListener('click', function(event) {
+        if (!card.classList.contains('show') && !card.classList.contains('open') && !card.classList.contains('match')) {
+            openCards.push(card);
+            card.classList.add('open', 'show');
+        }
+
+        if (openCards.length == 2) {
+            setTimeout(function() {
+                openCards.forEach(function(card) {
+                    card.classList.remove('open', 'show');
+                })
+                openCards = [];
+            }, 700);
+        }
+    })
 });
+
+
+
+// let allCards = document.querySelectorAll('.card');
+// let openCards = [];
+
+// allCards.forEach(function(card) {
+//     card.addEventListener('click', function(e) {
+//         if (!card.classList.contains('show') && !card.classList.contains('open') && !card.classList.contains('match') {
+//             openCards.push(card);
+//             card.classList.add('open', 'show');
+
+//             if (openCards.length == 2) {
+//                 setTimeout(function() {
+//                     openCards.forEach(function(card) {
+//                         card.classList.remove('open', 'show');
+//                     });
+//                     openCards = [];
+//                 }, 1000);
+//             }
+//         });
+//     });
+// });
