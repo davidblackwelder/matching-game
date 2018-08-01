@@ -66,8 +66,6 @@ let openCards = [];
 
 allCards.forEach(function(card) {
     card.addEventListener('click', function(event) {
-        moveCounter();
-
         if (!card.classList.contains('show') && !card.classList.contains('open') && !card.classList.contains('match')) {
             openCards.push(card);
             card.classList.add('open', 'show');
