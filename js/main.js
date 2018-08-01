@@ -32,6 +32,17 @@ function moveCounter() {
 }
 
 displayCards();
+newGame();
+
+
+
+function newGame() {
+    let reset = document.querySelector('.restart');
+    let resetButton = reset.querySelector('i');
+    resetButton.addEventListener('click', function(event) {
+        location.reload();
+    })
+}
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -91,5 +102,8 @@ allCards.forEach(function(card) {
             }
         }
     })
+
 });
+
+
 
