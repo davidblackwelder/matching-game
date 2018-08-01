@@ -25,6 +25,12 @@ function displayCards() {
     });
 }
 
+let moves = 0;
+function moveCounter() {
+    moves += 1;
+    document.querySelector('.moves').innerHTML = moves;
+}
+
 displayCards();
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -56,8 +62,12 @@ function shuffle(array) {
 let allCards = document.querySelectorAll('.card');
 let openCards = [];
 
+
+
 allCards.forEach(function(card) {
     card.addEventListener('click', function(event) {
+        moveCounter();
+
         if (!card.classList.contains('show') && !card.classList.contains('open') && !card.classList.contains('match')) {
             openCards.push(card);
             card.classList.add('open', 'show');
@@ -70,6 +80,7 @@ allCards.forEach(function(card) {
                 openCards[1].classList.add('match');
 
                 openCards = [];
+                moveCounter();
             } else {
                 // if no match -- hide
                 setTimeout(function() {
@@ -77,8 +88,10 @@ allCards.forEach(function(card) {
                         card.classList.remove('open', 'show');
                     })
                     openCards = [];
+                    moveCounter();
                 }, 700);
             }
         }
     })
 });
+
