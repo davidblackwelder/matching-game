@@ -81,7 +81,7 @@ h1 {
     font-size: 33px;
 }
 
-.deck .card.disabled {
+.deck .card.disable {
     pointer-events: none;
 }
 
@@ -107,7 +107,100 @@ h1 {
     display: inline-block;
 }
 
+.score-panel .moves {
+    display: inline-block;
+    margin-left: 50px;
+}
+
+.score-panel .timer {
+    display: inline-block;
+    margin-left: 50px;
+}
+
 .score-panel .restart {
     float: right;
     cursor: pointer;
+}
+
+/*
+* Styles for the modal
+*/
+
+.modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(1.1);
+    transition: visibility 0s linear 0.25s, opacity 0.25s 0s, transform 0.25s;
+}
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(13, 80, 168);
+    padding: 1rem 1.5rem;
+    width: 24rem;
+    border-radius: 0.5rem;
+    align-items: center;
+}
+
+.close-btn {
+    float: right;
+    width: 1.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    background-color: lightgray;
+}
+
+.close-btn:hover {
+    background-color: darkgray;
+    transform: scale(1.1);
+}
+
+.modal-title {
+    text-align: center;
+    color: silver;
+}
+
+.modal-stats {
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.modal-stats span {
+    display: block;
+    padding: 5px;
+    color: silver;
+    margin-top: -10px;
+    margin-left: 100px;
+    word-spacing: 0.5rem;
+}
+
+.modal-restart {
+    margin-left: 130px;
+    background-color: rgb(250, 170, 23);
+    color: white;
+    font-weight: bolder;
+    border-radius: 0.25rem;
+}
+
+.modal-restart:hover {
+    transform: scale(1.2);
+    border-radius: 0.25rem;
+    cursor: pointer;
+}
+
+.show-modal {
+    opacity: 1;
+    visibility: visible;
+    transform: scale(1.0);
+    transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
 }

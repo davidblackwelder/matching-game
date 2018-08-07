@@ -12,14 +12,22 @@ const symbols = ['fa fa-diamond', 'fa fa-diamond',
             ];
 
 const deck = document.querySelector('.deck');
+const timer = document.querySelector('.timer');
+
 
 let openCards = [];
 let matchedCards = [];
+let timerOff = true;
+let time = 0;
+let gameTimer;
+
 
 /*
 * Start Game
 */
 function startGame() {
+    const resetBtn = document.querySelector('.restart');
+    resetBtn.addEventListener('click', restartGame);
     displayDeck();
 }
 
@@ -63,14 +71,18 @@ function shuffle(array) {
 */
 function clickCard(card) {
     card.addEventListener('click', function() {
+         if (timerOff) {
+             startTimer();
+             timerOff = false;
+         }
+
         const currentCard = this;
         const previousCard = openCards[0];
-
+        
         // existing open card
         if (openCards.length === 1) {
             showCard(card);
             addOpenCards(this);
-
             checkMatch(currentCard, previousCard);
         } else {
         // no open card
@@ -84,7 +96,7 @@ function clickCard(card) {
 * Show symbol of card
 */
 function showCard(card) {
-    card.classList.add('open', 'show');
+    card.classList.add('open', 'show', 'disable');
 }
 
 /*
@@ -135,8 +147,8 @@ function addMatchedCards(currentCard, previousCard) {
 * Cards don't match
 */
 function noMatch(currentCard, previousCard) {
-    currentCard.classList.remove('open', 'show');
-    previousCard.classList.remove('open', 'show');
+    currentCard.classList.remove('open', 'show', 'disable');
+    previousCard.classList.remove('open', 'show', 'disable');
 }
 
 /*
@@ -174,55 +186,110 @@ function starDisplay() {
 /*
 * Reset game
 */
-const resetBtn = document.querySelector('.restart');
-resetBtn.addEventListener('click', function() {
+ function restartGame() {
     // remove cards
     deck.innerHTML = "";
 
     // call 'startGame' to create new board
     startGame();
 
+    // reset timer
+    stopTimer();
+    timerOff = true;
+    time = 0;
+    displayTime();
+
+
     // reset all stats
     matchedCards = [];
     moves = 0;
     displayMoves.innerHTML = moves + " moves";
     displayStars.innerHTML = stars;
-})
+}
 
 /*
 * End the game
 */
 function gameOver() {
     if (matchedCards.length === symbols.length) {
-        alert("You won!");
+        stopTimer(gameTimer);
+        showModal();
     }
 }
 
+/*
+* Start game timer
+*/
 function startTimer() {
-    timer = setInterval(function() {
-        seconds++;
-        if (seconds == 60) {
-            minutes++;
-            seconds = 0;
-        }
-        console.log(formatTime());
+    gameTimer = setInterval(function() {
+        time++;
+        displayTime();
     }, 1000);
 }
 
+/*
+* Display game timer
+*/
+function displayTime() {
+    minutes = Math.floor(time / 60);
+    seconds = (time % 60);
+    if (seconds < 10) {
+        timer.innerHTML = `${minutes}:0${seconds}`;
+    } else {
+        timer.innerHTML = `${minutes}:${seconds}`;
+    }
+}
+
+/*
+* Stop game timer
+*/
 function stopTimer() {
-    clearInterval(timer);
+    clearInterval(gameTimer);
 }
 
-function formatTime() {
-    let sec = seconds > 9 ? String(seconds) : '0' + String(seconds);
-    let min = minutes > 9 ? String(minutes) : '0' + String(minutes);
-    return min + ':' + sec;
+/*
+* Show modal
+*/
+function showModal() {
+    let modal = document.querySelector('.modal');
+    let modalRestart = document.querySelector('.modal-restart');
+    let modalCloseBtn = document.querySelector('.close-btn');
+
+    modal.classList.toggle('show-modal');
+
+    displayModalStats();
+
+    modalRestart.addEventListener('click', function() {
+        restartGame();
+        modal.classList.toggle('show-modal');
+    })
+    
+    modalCloseBtn.addEventListener('click', function() {
+        modal.classList.toggle('show-modal');
+    });
 }
 
-function displayTimer() {
-    let time = formatTime();
-    let msgText = document.getElementById('time-count');
-    msgText.innerText = time;
+/*
+* Display stats on modal
+*/
+function displayModalStats() {
+    let modalTime = document.querySelector('.modal-time');
+    let finalTime = document.querySelector('.timer').innerHTML;
+    let modalMoves = document.querySelector('.modal-moves');
+    let modalStars = document.querySelector('.modal-stars');
+    let finalStars = numberOfStars();
+
+    modalTime.innerHTML = `Time = ${finalTime}`;
+    modalMoves.innerHTML = `Moves = ${moves}`;
+    modalStars.innerHTML = `Stars = ${finalStars}`;
+}
+
+/*
+* Find number of stars
+*/
+function numberOfStars() {
+    totalStars = document.querySelectorAll('.fa-star');
+    return totalStars.length;
 }
 
 ////////// Start game for the first time
