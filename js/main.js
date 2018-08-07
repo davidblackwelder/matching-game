@@ -13,6 +13,9 @@ const symbols = ['fa fa-diamond', 'fa fa-diamond',
 
 const deck = document.querySelector('.deck');
 const timer = document.querySelector('.timer');
+const modal = document.querySelector('.modal');
+const modalRestart = document.querySelector('.modal-restart');
+const modalCloseBtn = document.querySelector('.close-btn');
 
 
 let openCards = [];
@@ -208,13 +211,25 @@ function starDisplay() {
 }
 
 /*
+* Replay game
+*/
+function replayGame() {
+    restartGame();
+    modal.classList.toggle('show-modal');
+}
+
+/*
 * End the game
 */
 function gameOver() {
     if (matchedCards.length === symbols.length) {
         stopTimer(gameTimer);
+        displayModalStats();
         showModal();
     }
+    document.querySelector('.modal-restart').addEventListener('click', replayGame);
+    
+    document.querySelector('.close-btn').addEventListener('click', showModal);
 }
 
 /*
@@ -251,22 +266,7 @@ function stopTimer() {
 * Show modal
 */
 function showModal() {
-    let modal = document.querySelector('.modal');
-    let modalRestart = document.querySelector('.modal-restart');
-    let modalCloseBtn = document.querySelector('.close-btn');
-
     modal.classList.toggle('show-modal');
-
-    displayModalStats();
-
-    modalRestart.addEventListener('click', function() {
-        restartGame();
-        modal.classList.toggle('show-modal');
-    })
-    
-    modalCloseBtn.addEventListener('click', function() {
-        modal.classList.toggle('show-modal');
-    });
 }
 
 /*
