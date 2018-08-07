@@ -196,6 +196,9 @@ function starDisplay() {
     // call 'startGame' to create new board
     startGame();
 
+    // empty 'openCards'
+    openCards = [];
+
     // reset timer
     stopTimer();
     timerOff = true;

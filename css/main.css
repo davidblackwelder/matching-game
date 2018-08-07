@@ -18,6 +18,9 @@ body {
 
 body {
     background: #ffffff url('../imgs/geometry2.png'); /* Background pattern from Subtle Patterns */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
     font-family: 'Coda', cursive;
 }
 
@@ -145,9 +148,10 @@ h1 {
     transform: translate(-50%, -50%);
     background-color: rgb(13, 80, 168);
     padding: 1rem 1.5rem;
-    width: 24rem;
+    width: 20rem;
     border-radius: 0.5rem;
     align-items: center;
+    margin: auto;
 }
 
 .close-btn {
@@ -180,12 +184,12 @@ h1 {
     padding: 5px;
     color: silver;
     margin-top: -10px;
-    margin-left: 100px;
+    margin-left: 5rem;
     word-spacing: 0.5rem;
 }
 
 .modal-restart {
-    margin-left: 130px;
+    margin-left: 6rem;
     background-color: rgb(250, 170, 23);
     color: white;
     font-weight: bolder;
@@ -203,4 +207,103 @@ h1 {
     visibility: visible;
     transform: scale(1.0);
     transition: visibility 0s linear 0s, opacity 0.25s 0s, transform 0.25s;
+}
+
+/*
+* Small screen
+*/
+
+@media screen and (max-width: 350px) {
+    .score-panel {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .modal-content {
+        width: 17rem;
+    }
+}
+
+/*
+* Medium screens
+*/
+
+@media screen and (max-width: 649px) {
+    .score-panel {
+        display: flex;
+    }
+
+    .score-panel .restart {
+        display: inline-flex;
+        margin-left: 50px;
+        width: 40px;
+    }
+
+    .score-panel .stars {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        margin: 0 5px 0 0;
+    }
+    
+    .score-panel .stars li {
+        list-style: none;
+        display: inline-block;
+    }
+    
+    .score-panel .moves {
+        display: inline-block;
+        margin-left: 50px;
+    }
+    
+    .score-panel .timer {
+        display: inline-block;
+        margin-left: 50px;
+    }
+
+    .deck {
+        width: 250px;
+        min-height: 250px;
+        padding: 10px;
+    }
+
+    .deck .card {
+        width: 50px;
+        height: 50px;
+    }
+
+    .deck .card.show {
+        font-size: 1em;
+    }
+    
+    .deck .card.match {
+        font-size: 1em;
+    }
+}
+
+/*
+* Large screens
+*/
+
+@media screen and (min-width: 650px ) and (max-width: 900px) {
+    .score-panel {
+        display: flex;
+    }
+
+    .score-panel .restart {
+        display: inline-flex;
+        margin-left: 50px;
+    }
+
+    .deck {
+        width: 500px;
+        min-height: 500px;
+        padding: 20px;
+    }
+
+    .deck .card {
+        width: 100px;
+        height: 100px;
+    }
 }
