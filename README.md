@@ -1,6 +1,6 @@
 # Memory Game
 
-Live version: https://codepen.io/davidblackwelder/full/XBZyyo/
+Live version: https://match.davidblackwelder.dev
 
 ## Languages Used
 * HTML5
