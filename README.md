@@ -1,6 +1,6 @@
 # Memory Game
 
-Live version: https://match.davidblackwelder.dev
+Live version: https://memory-game.davidblackwelder.dev
 
 ## Languages Used
 * HTML5
